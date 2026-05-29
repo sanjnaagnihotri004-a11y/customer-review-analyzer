@@ -1,0 +1,6 @@
+streamlit
+matplotlib
+wordcloud
+networkx
+spacy
+nltk
