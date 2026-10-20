@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+# Trigger this workflow automatically whenever code is pushed or a PR is opened
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python 3.11 environment in the GitHub runner
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # Step 3: Install all project dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Download NLP model assets
+      - name: Download NLP Language Models
+        run: |
+          python -m spacy download en_core_web_sm
+
+      # Step 5: Run the test suite with pytest
+      - name: Run Pytest
+        env:
+          DATABASE_URL: postgresql+psycopg2://review_user:review_pass@localhost:5432/reviewdb
+          SECRET_KEY: ci-environment-test-secret-key-32chars
+        run: |
+          pytest

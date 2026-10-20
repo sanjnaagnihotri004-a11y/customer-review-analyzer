@@ -1,6 +1,35 @@
-streamlit
-matplotlib
-wordcloud
-networkx
-spacy
-nltk
+# Web Application Framework & UI
+streamlit>=1.30.0
+
+# Visualization & Plotting
+matplotlib>=3.8.0
+wordcloud>=1.9.0
+networkx>=3.2.0
+
+# NLP & Linguistics
+spacy>=3.7.0
+nltk>=3.8.0
+
+# Configuration & Secrets
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+
+# Database & ORM
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+
+# Authentication & Security
+bcrypt>=4.1.0
+streamlit-authenticator>=0.3.0
+
+# Logging & Monitoring
+loguru>=0.7.0
+
+# Code Quality & Testing
+pytest>=8.0.0
+pytest-cov>=4.1.0
+ruff>=0.3.0
+black>=24.0.0
+isort>=5.13.0
+mypy>=1.9.0

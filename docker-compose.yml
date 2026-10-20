@@ -1,0 +1,42 @@
+services:
+  # ─────────────────────────────────────────────────────────────
+  # Database Service (PostgreSQL 15)
+  # ─────────────────────────────────────────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: customer-review-analyzer-db
+    restart: always
+    environment:
+      POSTGRES_USER: review_user
+      POSTGRES_PASSWORD: review_pass
+      POSTGRES_DB: reviewdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # ─────────────────────────────────────────────────────────────
+  # Web Application Service (Streamlit Review Analyzer)
+  # ─────────────────────────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: customer-review-analyzer-web
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      # Inside Docker, the database is reached at host 'db', not 'localhost'
+      - DATABASE_URL=postgresql+psycopg2://review_user:review_pass@db:5432/reviewdb
+    volumes:
+      # Persist logs to host machine
+      - ./logs:/app/logs
+
+volumes:
+  pgdata:
+    driver: local

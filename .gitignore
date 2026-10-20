@@ -1,4 +1,3 @@
-
 # Python cache
 __pycache__/
 *.pyc
@@ -23,3 +22,10 @@ Thumbs.db
 # IDE/editor settings
 .vscode/
 .idea/
+
+# Environment secrets (NEVER commit this)
+.env
+
+# Application logs
+logs/
+*.log
