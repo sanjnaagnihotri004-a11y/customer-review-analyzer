@@ -20,11 +20,14 @@ env/
 Thumbs.db
 
 # IDE/editor settings
-.vscode/
 .idea/
 
 # Environment secrets (NEVER commit this)
 .env
+
+# Local SQLite databases
+*.sqlite3
+*.db
 
 # Application logs
 logs/
